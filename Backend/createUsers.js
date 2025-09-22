@@ -1,56 +1,92 @@
-import User from "./models/userModel.js";
-import connectDB from "./config/mongodb.js";
-import bcrypt from "bcrypt";
+
+import mongoose from "mongoose";
 import dotenv from "dotenv";
+import bcrypt from "bcrypt";
+import User from "./models/userModel.js";
 
 dotenv.config();
 
-// Function to create users
-const createUsers = async () => {
+const MONGODB_URI = process.env.MONGODB_URI;
+
+async function createUsers() {
   try {
-    // Connect to the database
-    await connectDB();
-    console.log("Connected to MongoDB");
+    await mongoose.connect(MONGODB_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
 
-    // Check if admin already exists
-    const existingAdmin = await User.findOne({ email: "admin@example.com" });
-    if (existingAdmin) {
-      console.log("Admin user already exists!");
-    } else {
-      // Create admin user
-      const adminPassword = await bcrypt.hash("adminpassword123", 14);
-      const newAdmin = await User.create({
-        username: "admin_user",
-        email: "admin@example.com",
-        password: adminPassword,
-        role: "admin"
-      });
-      console.log("Admin user created successfully:", newAdmin.username);
-    }
+    // Second admin
+    const adminEmail2 = "admin2@example.com";
+    const adminPassword2 = "adminpassword456";
+    const adminUsername2 = "admin_user2";
+    const adminRole2 = "admin";
 
-    // Check if regular user already exists
-    const existingUser = await User.findOne({ email: "user@example.com" });
-    if (existingUser) {
-      console.log("Regular user already exists!");
-    } else {
-      // Create regular user
-      const userPassword = await bcrypt.hash("userpassword123", 14);
-      const newUser = await User.create({
-        username: "regular_user",
-        email: "user@example.com",
-        password: userPassword,
-        role: "user"
-      });
-      console.log("Regular user created successfully:", newUser.username);
-    }
+    // Second user
+    const userEmail2 = "user2@example.com";
+    const userPassword2 = "userpassword456";
+    const userUsername2 = "regular_user2";
+    const userRole2 = "user";
 
-    console.log("User creation process completed!");
-    process.exit(0);
-  } catch (error) {
-    console.error("Error creating users:", error);
-    process.exit(1);
+    // Hash passwords
+    const hashedAdminPassword1 = await bcrypt.hash(adminPassword1, 14);
+    const hashedUserPassword1 = await bcrypt.hash(userPassword1, 14);
+    const hashedAdminPassword2 = await bcrypt.hash(adminPassword2, 14);
+    const hashedUserPassword2 = await bcrypt.hash(userPassword2, 14);
+
+    // Upsert first admin
+    await User.findOneAndUpdate(
+      { email: adminEmail1 },
+      {
+        username: adminUsername1,
+        email: adminEmail1,
+        password: hashedAdminPassword1,
+        role: adminRole1,
+      },
+      { upsert: true, new: true }
+    );
+
+    // Upsert first user
+    await User.findOneAndUpdate(
+      { email: userEmail1 },
+      {
+        username: userUsername1,
+        email: userEmail1,
+        password: hashedUserPassword1,
+        role: userRole1,
+      },
+      { upsert: true, new: true }
+    );
+
+    // Upsert second admin
+    await User.findOneAndUpdate(
+      { email: adminEmail2 },
+      {
+        username: adminUsername2,
+        email: adminEmail2,
+        password: hashedAdminPassword2,
+        role: adminRole2,
+      },
+      { upsert: true, new: true }
+    );
+
+    // Upsert second user
+    await User.findOneAndUpdate(
+      { email: userEmail2 },
+      {
+        username: userUsername2,
+        email: userEmail2,
+        password: hashedUserPassword2,
+        role: userRole2,
+      },
+      { upsert: true, new: true }
+    );
+
+    console.log("All admin and regular users created/updated successfully.");
+    mongoose.connection.close();
+  } catch (err) {
+    console.error("Error creating users:", err);
+    mongoose.connection.close();
   }
-};
+}
 
-// Run the function
 createUsers();
