@@ -15,8 +15,6 @@ export const createOrder = async (req, res) => {
       orderStatus
     } = req.body;
 
-    console.log("ShippingAddress:", shippingAddress);
-
     // Check required fields
     if (
       !userId ||

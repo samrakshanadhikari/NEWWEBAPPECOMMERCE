@@ -53,7 +53,7 @@ const Cart = () => {
                     <div key={item._id} className="flex flex-col md:flex-row gap-6 border-b pb-6">
                       {/* Image */}
                       <img
-                        src={`http://localhost:3000/${item.productId.productImageUrl}`}
+                        src={`${import.meta.env.VITE_API_URL || 'http://localhost:3000/'}${item.productId.productImageUrl}`}
                         alt="Sample Product"
                         className="w-28 h-28 object-contain rounded-md"
                       />

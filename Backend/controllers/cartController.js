@@ -7,8 +7,6 @@ export const addToCart = async (req, res) => {
     const  userId  = req.user.id;  //optional chaining
 
     const { productId, quantity } = req.body;
-    console.log("ProductId : ", productId)
-    console.log("userId : ", userId)
 
     if (!productId || !quantity) {
         return res.status(400).json({ message: "ProductId and the quantity must required" })
@@ -72,8 +70,6 @@ export const updateCartItem = async (req, res) => {
 export const deleteCartItem = async (req, res) => {
     const  userId  = req.user.id;  //optional chaining
     const { productId } = req.params;
-    console.log("userId : ", userId);
-    console.log("productId : ",productId);
     const deleteCartItem= await Cart.findOneAndDelete({userId, productId});
     if(!deleteCartItem){
         return res.status(404).json({message : "Cart items not found"})

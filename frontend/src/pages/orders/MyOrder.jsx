@@ -14,8 +14,6 @@ const MyOrder = () => {
     dispatch(fetchMyOrders());
   }, [dispatch]);
 
-  console.log("my orders", myOrder);
-
   const handleFilterChange = (e) => setFilter(e.target.value);
 
   const renderOrderTable = (orders) => (
@@ -43,7 +41,7 @@ const MyOrder = () => {
                       className="flex items-center gap-4 cursor-pointer"
                     >
                       <img
-                        src={`http://localhost:3000/${item.productId?.productImageUrl}`}
+                        src={`${import.meta.env.VITE_API_URL || 'http://localhost:3000/'}${item.productId?.productImageUrl}`}
                         alt={item.productId?.productName || 'Product'}
                         className="w-14 h-20 object-cover rounded-lg shadow-sm"
                       />

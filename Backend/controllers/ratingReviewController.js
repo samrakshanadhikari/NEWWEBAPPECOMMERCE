@@ -5,7 +5,6 @@ export const createReview = async (req, res) => {
   try {
     const { productId, rating, comment } = req.body;
     const userId = req.user.id;
-    console.log("UserId:", userId);
 
     const existingReview = await RatingReview.findOne({ userId, productId });
     if (existingReview) {

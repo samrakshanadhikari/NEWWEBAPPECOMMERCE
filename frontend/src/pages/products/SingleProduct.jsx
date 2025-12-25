@@ -25,10 +25,6 @@ const SingleProduct = () => {
         }
     }, [dispatch, id]);
 
-
-    console.log("singleProduct : ",singleProduct)
-
-
     const handleAddToCart= async()=>{
        if(id ){
         await  dispatch(addToCart(id, quantity));
@@ -42,10 +38,6 @@ const SingleProduct = () => {
        }
     }
 
-    console.log("singleProduct : ", singleProduct)
-
-    
-
     return (
         <>
             <Navbar />
@@ -55,7 +47,7 @@ const SingleProduct = () => {
                         <div className="relative flex justify-center items-center">
                             <div className="bg-white p-4 rounded-2xl shadow-md hover:shadow-xl transition-transform transform hover:scale-105 flex justify-center border border-gray-100">
                                 <img
-                                    src={`http://localhost:3000/${singleProduct?.productImageUrl}`}
+                                    src={`${import.meta.env.VITE_API_URL || 'http://localhost:3000/'}${singleProduct?.productImageUrl}`}
                                     alt={singleProduct?.productName || "Product"}
                                     className="w-[300px] object-cover rounded-xl"
                                 />

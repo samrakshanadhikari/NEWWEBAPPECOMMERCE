@@ -40,13 +40,10 @@ function App() {
     if (token) {
       try {
         const decoded = jwtDecode(token);
-
-        console.log("Decoded token:", decoded);
-
-        console.log("Role : ", decoded.role)
         setRole(decoded.role);
       } catch (error) {
-        console.error("Invalid token", error);
+        // Invalid token - clear and set role to null
+        localStorage.removeItem("token");
         setRole(null);
       }
     }

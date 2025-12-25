@@ -10,7 +10,6 @@ export const createCategory = async (req, res) => {
         categoryImageUrl = req.file.filename;  
     }
 
-    console.log(categoryImageUrl)
     const existingCategory = await Category.findOne({ categoryName });
     if (existingCategory) {
         return res.status(400).json({ message: "Category name must be unique" });

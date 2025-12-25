@@ -51,7 +51,6 @@ export function submitOrder(orderData, navigate) {
     dispatch(setStatus(STATUS.LOADING));
     try {
       const response = await APIAuthenticated.post(`/api/order`, orderData);
-      console.log("response : ", response);
 
       if (response.status === 200) {
         dispatch(setStatus(STATUS.SUCCESS));

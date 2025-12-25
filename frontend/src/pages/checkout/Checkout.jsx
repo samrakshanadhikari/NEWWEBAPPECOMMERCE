@@ -45,7 +45,6 @@ const Checkout = () => {
       orderStatus: 'pending',
     };
 
-    console.log(orderPayload);
     dispatch(submitOrder(orderPayload, navigate));
   };
 
@@ -69,7 +68,7 @@ const Checkout = () => {
                     className="flex items-center bg-gray-50 border border-gray-200 p-4 rounded-lg"
                   >
                     <img
-                      src={`http://localhost:3000/${item?.productId?.productImageUrl}`}
+                      src={`${import.meta.env.VITE_API_URL || 'http://localhost:3000/'}${item?.productId?.productImageUrl}`}
                       alt="Book"
                       className="w-20 h-20 object-cover rounded-lg"
                     />

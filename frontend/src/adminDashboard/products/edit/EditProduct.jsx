@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
 import Sidebar from '../../dashboard/sidebar/Sidebar';
+import { APIAuthenticated } from '../../../http';
 
 const EditProduct = () => {
   const { id } = useParams();  
@@ -21,7 +21,7 @@ const EditProduct = () => {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/api/product/singleProduct/${id}`);
+        const response = await APIAuthenticated.get(`/api/product/singleProduct/${id}`);
         const product = response.data.data; 
         setProductData({
           productName: product.productName,
@@ -60,15 +60,10 @@ const EditProduct = () => {
     }
 
     try {
-      await axios.patch(`http://localhost:3000/api/product/update/${id}`, formData, {
-        headers: {
-          Authorization: `${token}`,
-        }
-      });
+      await APIAuthenticated.patch(`/api/product/update/${id}`, formData);
       alert('Product updated successfully');
       navigate('/listProduct');
     } catch (error) {
-      console.error('Error updating product:', error);
       alert('Failed to update product');
     }
   };
@@ -96,7 +91,7 @@ const EditProduct = () => {
                   src={
                     productData.image
                       ? URL.createObjectURL(productData.image)
-                      : `http://localhost:3000/${productData.existingImageUrl}`
+                      : `${import.meta.env.VITE_API_URL || 'http://localhost:3000/'}${productData.existingImageUrl}`
                   }
                   alt="Product preview"
                   className="w-48 h-48 object-cover rounded-xl shadow-lg transition-transform duration-300 hover:scale-105"

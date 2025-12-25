@@ -76,7 +76,7 @@ const LandingPage = () => {
           <div className="w-full flex justify-center p-4">
             <div className="relative overflow-hidden rounded-2xl shadow-lg">
               <img
-                src="http://localhost:3000/1754813703505-electronics.jpeg"
+                src={`${import.meta.env.VITE_API_URL || 'http://localhost:3000/'}1754813703505-electronics.jpeg`}
                 alt="Electronics Shopping"
                 className="w-full max-w-lg h-auto object-cover transform hover:scale-105 transition-transform duration-700"
               />

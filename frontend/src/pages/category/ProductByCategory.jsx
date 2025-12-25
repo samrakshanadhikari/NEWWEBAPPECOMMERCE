@@ -31,7 +31,7 @@ const ProductByCategory = () => {
             {products.map((product) => (
               <div key={product._id || product.id} className="border rounded-lg p-4 shadow hover:shadow-lg transition">
                 <img
-                  src={`http://localhost:3000/${product.productImageUrl}`}
+                  src={`${import.meta.env.VITE_API_URL || 'http://localhost:3000/'}${product.productImageUrl}`}
                   alt={product.productName}
                   className="w-full h-40 object-contain mb-4"
                 />

@@ -9,7 +9,7 @@ const upload=multer({storage : storage});
 
 
 router.route("/").post(isAuthenticated, restrictTo(Role.Admin),upload.single('image'), errorHandle(createCategory))
-.get(getAllCategory)
+.get(errorHandle(getAllCategory))
 
 router.route("/:id").get(errorHandle(fetchSingleCategory))
 .patch(isAuthenticated, restrictTo(Role.Admin), errorHandle(updateCategory))

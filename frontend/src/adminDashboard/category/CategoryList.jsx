@@ -40,7 +40,6 @@ const CategoryList = () => {
   };
 
   const handleEdit = (category) => {
-    console.log("Edit category:", category);
     // implement your edit logic or routing here
   };
 
@@ -118,7 +117,7 @@ const CategoryList = () => {
                       <div className="flex items-center">
                         {category.categoryImageUrl ? (
                           <img
-                            src={`http://localhost:3000/${category.categoryImageUrl}`}
+                            src={`${import.meta.env.VITE_API_URL || 'http://localhost:3000/'}${category.categoryImageUrl}`}
                             alt={category.categoryName || "category"}
                             className="w-10 h-10 object-cover rounded-md shadow-sm"
                           />

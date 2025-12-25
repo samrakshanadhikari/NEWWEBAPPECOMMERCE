@@ -25,7 +25,7 @@ const Category = () => {
           >
             <div className="flex justify-center items-center h-40 bg-gray-100 rounded-t-2xl overflow-hidden">
               <img
-                src={`http://localhost:3000/${cat.categoryImageUrl}`}
+                src={`${import.meta.env.VITE_API_URL || 'http://localhost:3000/'}${cat.categoryImageUrl}`}
                 alt={cat.categoryName}
                 className="max-h-full object-contain"
               />

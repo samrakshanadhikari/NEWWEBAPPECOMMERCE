@@ -84,7 +84,6 @@ const AddCategory = () => {
             toast.success("Category added successfully");
             navigate("/categoryList");
         } catch (error) {
-            console.error(error);
             toast.error("Error creating category. Please try again.");
         } finally {
             setIsSubmitting(false);

@@ -14,7 +14,6 @@ const authSlice = createSlice({
   reducers: {
     setUserData(state, action) {
       state.data = action.payload;
-      console.log()
     },
     setUserList(state, action) {
       state.userList = action.payload;
@@ -27,7 +26,6 @@ const authSlice = createSlice({
     },
     setToken(state, action) {
       state.token = action.payload;
-      console.log(state.token);
     },
     setProfile(state, action) {
       state.profile = action.payload;

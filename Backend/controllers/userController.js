@@ -81,7 +81,6 @@ export const getAllUsers = async (req, res) => {
 export const singleUser = async (req, res) => {
     try {
         const { id } = req.params;
-        console.log("Id from the postman : ", id)
         const users = await User.findById(id);
         if(!users){
             return res.status(400).json({ message: "User not found" });

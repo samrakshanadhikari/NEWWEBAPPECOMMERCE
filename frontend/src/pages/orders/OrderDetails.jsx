@@ -50,7 +50,7 @@ const OrderDetails = () => {
                 return (
                   <div key={item._id} className="flex items-center gap-6 border rounded-lg p-5 shadow">
                     <img
-                      src={product ? `http://localhost:3000/${product.productImageUrl}` : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTAVVbswAkCTT7A1GGA4TK-pQS0zCU8KAJemw&s'}
+                      src={product ? `${import.meta.env.VITE_API_URL || 'http://localhost:3000/'}${product.productImageUrl}` : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTAVVbswAkCTT7A1GGA4TK-pQS0zCU8KAJemw&s'}
                       alt={product ? product.productName : 'Product'}
                       className="w-24 h-32 object-cover rounded-lg flex-shrink-0"
                     />

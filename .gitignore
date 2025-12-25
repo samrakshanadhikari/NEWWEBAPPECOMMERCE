@@ -1,0 +1,59 @@
+# Environment Variables (NEVER commit these!)
+.env
+.env.local
+.env.production
+.env.development
+**/.env
+**/.env.local
+
+# Dependencies
+node_modules/
+**/node_modules/
+
+# Build outputs
+dist/
+build/
+**/dist/
+**/build/
+
+# Logs
+*.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Storage (uploaded files - too large for git)
+Backend/storage/*
+!Backend/storage/.gitkeep
+
+# Temporary files
+*.tmp
+*.temp
+.cache/
+
+# Coverage reports
+coverage/
+.nyc_output/
+
+# Railway/Vercel
+.railway/
+.vercel/
+
+

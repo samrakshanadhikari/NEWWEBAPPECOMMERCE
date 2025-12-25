@@ -26,7 +26,6 @@ const Navbar = () => {
   };
 
   const store=cart?.data?.length;
-  console.log("cart in the navbar", store)
 
 
 

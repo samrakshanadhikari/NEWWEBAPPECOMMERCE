@@ -82,7 +82,6 @@ export function listAllCategory() {
         try {
             const response = await API.get("/api/category");
 
-            console.log("response", response)
             if (response.status === 200) {
                 dispatch(setCategoryData(response.data.data));
                 dispatch(setStatus(STATUS.SUCCESS));

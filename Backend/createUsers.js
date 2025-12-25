@@ -15,6 +15,18 @@ async function createUsers() {
       useUnifiedTopology: true,
     });
 
+    // First admin
+    const adminEmail1 = "admin@example.com";
+    const adminPassword1 = "adminpassword123";
+    const adminUsername1 = "admin_user1";
+    const adminRole1 = "admin";
+
+    // First user
+    const userEmail1 = "user@example.com";
+    const userPassword1 = "userpassword123";
+    const userUsername1 = "regular_user1";
+    const userRole1 = "user";
+
     // Second admin
     const adminEmail2 = "admin2@example.com";
     const adminPassword2 = "adminpassword456";

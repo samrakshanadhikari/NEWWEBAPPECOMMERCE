@@ -42,11 +42,6 @@ const deliveredOrders = allOrders?.data?.filter(order => order.orderStatus === "
 const pendingOrders = allOrders?.data?.filter(order => order.orderStatus === "pending") || [];
 const cancelledOrders = allOrders?.data?.filter(order => order.orderStatus === "cancelled") || [];
 
-
-  console.log("deliveresorder ", deliveredOrders)
-
-
-
   return (
     <div className="flex min-h-screen bg-blue-50">
       <Sidebar />

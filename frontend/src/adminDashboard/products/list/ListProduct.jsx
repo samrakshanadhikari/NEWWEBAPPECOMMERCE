@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import { FaEdit, FaTrash, FaRupeeSign, FaBoxOpen, FaStar, FaTags } from 'react-icons/fa';
 import Sidebar from '../../dashboard/sidebar/Sidebar';
 import { Link } from 'react-router-dom';
 import Pagination from '../../pagination/Pagination';
+import { API, APIAuthenticated } from '../../../http';
 
 const PAGE_SIZE = 4;
 
@@ -13,10 +13,10 @@ const ListProduct = () => {
 
     const fetchProducts = async () => {
         try {
-            const response = await axios.get('http://localhost:3000/api/product/getAll');
+            const response = await API.get('/api/product/getAll');
             setProducts(response.data.data);
         } catch (error) {
-            console.error('Error fetching products:', error);
+            // Error handled by error state
         }
     };
 
@@ -42,7 +42,7 @@ const ListProduct = () => {
     const handleDelete = async (id) => {
         try {
             const token = localStorage.getItem('token');
-            await axios.delete(`http://localhost:3000/api/product/delete/${id}`, {
+            await APIAuthenticated.delete(`/api/product/delete/${id}`, {
                 headers: {
                     Authorization: `${token}`,
                 },
@@ -71,7 +71,7 @@ const ListProduct = () => {
                         >
                             {/* Image */}
                                 <img
-                                src={`http://localhost:3000/${product.productImageUrl}`}
+                                src={`${import.meta.env.VITE_API_URL || 'http://localhost:3000/'}${product.productImageUrl}`}
                                 alt={product.productName}
                                 className="w-full md:w-40 h-36 object-cover rounded-md bg-white p-1"
                             />                            <div className="flex-1 flex flex-col gap-1 text-center md:text-left">

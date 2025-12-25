@@ -9,7 +9,7 @@ router.route("/").post(isAuthenticated,restrictTo(Role.User), errorHandle(addToC
 .get(isAuthenticated, errorHandle(getCartItem))
 
 router.route("/").patch(isAuthenticated, errorHandle(updateCartItem) )
-router.route("/:productId").delete(isAuthenticated, deleteCartItem)
+router.route("/:productId").delete(isAuthenticated, errorHandle(deleteCartItem))
 
 
 export default  router

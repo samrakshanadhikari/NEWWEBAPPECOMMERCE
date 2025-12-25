@@ -1,6 +1,6 @@
-import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import Navbar from '../../../globals/components/navbar/Navbar';
+import { APIAuthenticated } from '../../../http';
 
 const Profile = () => {
   const [user, setUser] = useState(null);
@@ -11,15 +11,12 @@ const Profile = () => {
 
   useEffect(() => {
     const fetchUserProfile = async () => {
-      const token = localStorage.getItem('token');
       try {
-        const response = await axios.get("http://localhost:3000/api/profile", {
-          headers: { Authorization: `${token}` }
-        });
+        const response = await APIAuthenticated.get("/api/user/profile");
         setUser(response.data.data);
         setUserData({ username: response.data.data.username });
       } catch (err) {
-        console.log("Error on fetching the data");
+        // Error handled by error state
       }
     };
 
@@ -32,12 +29,10 @@ const Profile = () => {
   };
 
   const handleUpdate = async () => {
-    const token = localStorage.getItem('token');
     try {
-      await axios.patch(
-        `http://localhost:3000/api/updateUser/${user._id}`,
-        { username: userData.username },
-        { headers: { Authorization: `${token}` } }
+      await APIAuthenticated.patch(
+        `/api/user/updateUser/${user._id}`,
+        { username: userData.username }
       );
       alert("Username updated successfully");
       setUser({ ...user, username: userData.username });
