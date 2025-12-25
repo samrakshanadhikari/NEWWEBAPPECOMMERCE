@@ -1,0 +1,4 @@
+# This file ensures the storage directory is tracked by git
+# Actual uploaded images should not be committed (too large)
+
+
