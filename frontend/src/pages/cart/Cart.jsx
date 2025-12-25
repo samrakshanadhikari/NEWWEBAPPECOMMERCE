@@ -30,9 +30,9 @@ const Cart = () => {
     dispatch(removeCartItem(productId));
   }
 
-  const totalItem= cart?.data?.length
-  const totalQuantity= cart?.data?.reduce((prev, curr)=>prev + curr.quantity, 0 ) ;
-  const subTotal= cart?.data?.reduce((prev, curr)=>prev + curr?.quantity * curr?.productId?.productPrice, 0 ) ;
+  const totalItem= cart?.data?.length || 0
+  const totalQuantity= cart?.data?.reduce((prev, curr)=>prev + curr.quantity, 0 ) || 0;
+  const subTotal= cart?.data?.reduce((prev, curr)=>prev + curr?.quantity * curr?.productId?.productPrice, 0 ) || 0;
 
   return (
     <>
@@ -48,8 +48,8 @@ const Cart = () => {
             <div className="md:col-span-2 space-y-6">
               {/* Example Cart Item */}
               {
-                cart?.data?.length > 0 ? (
-                  cart?.data?.map((item) => (
+                cart?.data && cart.data.length > 0 ? (
+                  cart.data.map((item) => (
                     <div key={item._id} className="flex flex-col md:flex-row gap-6 border-b pb-6">
                       {/* Image */}
                       <img
@@ -95,10 +95,16 @@ const Cart = () => {
                     </div>
                   ))
                 ) : (
-                  <>
-                    <h1>Data not found</h1>
-                  </>
-
+                  <div className="text-center py-12">
+                    <h2 className="text-2xl font-bold text-gray-700 mb-4">Your cart is empty</h2>
+                    <p className="text-gray-500 mb-6">Add some items to your cart to get started!</p>
+                    <Link 
+                      to="/fetchProduct"
+                      className="inline-block bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg transition-colors"
+                    >
+                      Continue Shopping
+                    </Link>
+                  </div>
                 )
               }
             </div>
@@ -127,8 +133,21 @@ const Cart = () => {
                 </div>
               </div>
 
-              <Link to="/checkout">
-                <button className="w-full bg-blue-600 hover:bg-blue-700 transition text-white py-2 px-4 rounded-lg mt-4 font-medium">
+              <Link to={totalItem > 0 ? "/checkout" : "#"}>
+                <button 
+                  disabled={totalItem === 0}
+                  className={`w-full transition text-white py-2 px-4 rounded-lg mt-4 font-medium ${
+                    totalItem > 0 
+                      ? 'bg-blue-600 hover:bg-blue-700 cursor-pointer' 
+                      : 'bg-gray-400 cursor-not-allowed'
+                  }`}
+                  onClick={(e) => {
+                    if (totalItem === 0) {
+                      e.preventDefault();
+                      alert('Your cart is empty. Add items to cart before checkout.');
+                    }
+                  }}
+                >
                   Proceed to Checkout
                 </button>
               </Link>

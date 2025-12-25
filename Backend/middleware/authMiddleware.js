@@ -11,23 +11,30 @@ export const Role={
 export const isAuthenticated = async (req, res, next) => {
     const token = req.headers.authorization;
     if (!token) {
-        return res.status(401).json({ message: " Token not found" });
+        return res.status(401).json({ message: "Token not found" });
     }
 //call back function
     jwt.verify(token, process.env.JWT_SECRETE, async (err, decoded) => {
         if (err) {
-            return res.status(403).json({ message: " Invalid token" });
+            // Provide more specific error messages
+            if (err.name === 'TokenExpiredError') {
+                return res.status(403).json({ message: "Token expired. Please login again." });
+            } else if (err.name === 'JsonWebTokenError') {
+                return res.status(403).json({ message: "Invalid token. Please login again." });
+            }
+            return res.status(403).json({ message: "Invalid token" });
         }
         else {
             try {
                 const userData = await User.findById(decoded.id);
                 if (!userData) {
-                    return res.status(404).json({ message: " No user with that token" });
+                    return res.status(404).json({ message: "No user with that token" });
                 }
                 req.user = userData;  //use it in other places
                 next();
             } catch (err) {
-                res.status(500).json({ message: " Internal server error" })
+                console.error("Authentication error:", err);
+                res.status(500).json({ message: "Internal server error" })
             }
         }
     })

@@ -1,299 +1,272 @@
-# 🛒 E-Commerce Web Application
+# 🛒 ShopSmart - Full-Stack E-Commerce Platform
 
-A full-stack e-commerce platform built with React, Node.js, Express, and MongoDB. Features include user authentication, product management, shopping cart, order processing, and an admin dashboard.
+> A modern, production-ready e-commerce application built with React, Node.js, Express, and MongoDB. Features complete user authentication, product management, shopping cart, order processing, payment integration, and an admin dashboard.
+
+[![React](https://img.shields.io/badge/React-19-blue.svg)](https://reactjs.org/)
+[![Node.js](https://img.shields.io/badge/Node.js-20-green.svg)](https://nodejs.org/)
+[![Express](https://img.shields.io/badge/Express-4.x-lightgrey.svg)](https://expressjs.com/)
+[![MongoDB](https://img.shields.io/badge/MongoDB-Atlas-brightgreen.svg)](https://www.mongodb.com/)
+[![Stripe](https://img.shields.io/badge/Stripe-Integrated-635BFF.svg)](https://stripe.com/)
 
 ## 🚀 Live Demo
 
-- **Frontend:** [Deploy and add your Vercel URL here]
-- **Backend API:** [Deploy and add your Railway URL here]
+- **Frontend:** [Coming Soon - Deploy to Vercel]
+- **Backend API:** [Coming Soon - Deploy to Railway]
 
 ## 📋 Features
 
-### User Features
-- ✅ User registration and authentication (JWT)
-- ✅ Browse products by category
-- ✅ Product search and filtering
-- ✅ Shopping cart management
-- ✅ Order placement and tracking
-- ✅ Product reviews and ratings
-- ✅ User profile management
-- ✅ Wishlist functionality
+### 🔐 User Features
+- ✅ **User Authentication & Authorization** - Secure JWT-based login/register system
+- ✅ **Product Browsing** - Browse products by category with image galleries
+- ✅ **Shopping Cart** - Add, update, and remove items with real-time quantity management
+- ✅ **Order Management** - Place orders and track order history
+- ✅ **Payment Integration** - Secure payment processing with Stripe (Credit/Debit cards, Apple Pay, Google Pay)
+- ✅ **Product Reviews** - Rate and review products
+- ✅ **User Profile** - Manage personal information and preferences
+- ✅ **Wishlist** - Save favorite products for later
 
-### Admin Features
-- ✅ Admin dashboard with analytics
-- ✅ Product management (CRUD operations)
-- ✅ Category management
-- ✅ Order management
-- ✅ User management
-- ✅ Image upload for products and categories
+### 👨‍💼 Admin Features
+- ✅ **Admin Dashboard** - Comprehensive analytics and overview
+- ✅ **Product Management** - Full CRUD operations for products with image uploads
+- ✅ **Category Management** - Organize products by categories
+- ✅ **Order Management** - View, update, and manage customer orders
+- ✅ **User Management** - Monitor and manage user accounts
+- ✅ **Image Upload** - Upload and manage product/category images
 
 ## 🛠️ Tech Stack
 
 ### Frontend
-- **React 19** - UI library
-- **Vite** - Build tool and dev server
-- **Redux Toolkit** - State management
-- **React Router** - Navigation/routing
-- **Tailwind CSS** - Styling
-- **Axios** - HTTP client
-- **React Toastify** - Notifications
+- **React 19** - Modern UI library with hooks
+- **Vite** - Fast build tool and development server
+- **Redux Toolkit** - Efficient state management
+- **React Router** - Client-side routing and navigation
+- **Tailwind CSS** - Utility-first CSS framework
+- **Axios** - HTTP client for API requests
+- **React Toastify** - Beautiful notifications
+- **Stripe Elements** - Secure payment form components
 
 ### Backend
-- **Node.js** - JavaScript runtime
-- **Express.js** - Web framework
-- **MongoDB** - Database (via Mongoose ODM)
-- **JWT** - Authentication tokens
-- **Bcrypt** - Password hashing
-- **Multer** - File upload handling
+- **Node.js** - JavaScript runtime environment
+- **Express.js** - Fast, unopinionated web framework
+- **MongoDB** - NoSQL database (via Mongoose ODM)
+- **JWT** - JSON Web Tokens for authentication
+- **Bcrypt** - Password hashing for security
+- **Multer** - File upload middleware
 - **CORS** - Cross-origin resource sharing
+- **Stripe** - Payment processing integration
 
-### Database
-- **MongoDB Atlas** - Cloud-hosted MongoDB
-
-### Deployment
-- **Vercel** - Frontend hosting
-- **Railway** - Backend hosting
+### Database & Cloud Services
+- **MongoDB Atlas** - Cloud-hosted MongoDB database
+- **Vercel** (Recommended) - Frontend hosting
+- **Railway** (Recommended) - Backend API hosting
 
 ## 🏗️ Architecture
 
-This application follows a **RESTful API architecture** with:
-- **Frontend (React)** - Client-side application
-- **Backend (Express)** - REST API server
-- **Database (MongoDB)** - Data persistence
+This application follows a **RESTful API architecture** with clear separation of concerns:
 
-### API Structure
-- RESTful endpoints
-- JWT-based authentication
-- Role-based access control (Admin/User)
-- Error handling middleware
-- File upload support
-
-## 📦 Installation
-
-### Prerequisites
-- Node.js (v16 or higher)
-- npm or yarn
-- MongoDB Atlas account (or local MongoDB)
-
-### Backend Setup
-
-1. Navigate to the backend directory:
-```bash
-cd Backend
+```
+┌─────────────┐         ┌──────────────┐         ┌─────────────┐
+│   React     │  HTTP   │   Express    │  Query  │   MongoDB   │
+│  Frontend   │ ──────> │    API       │ ──────> │   Atlas     │
+│             │ <────── │              │ <────── │             │
+└─────────────┘  JSON   └──────────────┘  Data   └─────────────┘
 ```
 
-2. Install dependencies:
-```bash
-npm install
-```
+### Key Architecture Decisions
+- **RESTful API** - Standard HTTP methods (GET, POST, PATCH, DELETE)
+- **JWT Authentication** - Stateless authentication with token expiration
+- **Role-Based Access Control** - Admin and User roles with middleware protection
+- **Error Handling** - Centralized error handling middleware
+- **File Upload** - Multer for handling multipart/form-data
+- **State Management** - Redux Toolkit for predictable state updates
 
-3. Create a `.env` file in the `Backend` directory:
-```env
-PORT=3000
-MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/database
-JWT_SECRETE=your_secret_jwt_key_here
-CORS_ORIGIN=http://localhost:5173
-```
-
-4. Seed the database (optional):
-```bash
-node createUsers.js
-node seedProducts.js
-```
-
-5. Start the backend server:
-```bash
-npm run dev
-```
-
-The backend will run on `http://localhost:3000`
-
-### Frontend Setup
-
-1. Navigate to the frontend directory:
-```bash
-cd frontend
-```
-
-2. Install dependencies:
-```bash
-npm install
-```
-
-3. Create a `.env` file in the `frontend` directory:
-```env
-VITE_API_URL=http://localhost:3000
-```
-
-4. Start the development server:
-```bash
-npm run dev
-```
-
-The frontend will run on `http://localhost:5173`
-
-## 🔐 Environment Variables
-
-### Backend (.env)
-```env
-PORT=3000
-MONGODB_URI=your_mongodb_connection_string
-JWT_SECRETE=your_jwt_secret_key
-CORS_ORIGIN=your_frontend_url
-FRONTEND_URL=your_frontend_url
-```
-
-### Frontend (.env)
-```env
-VITE_API_URL=your_backend_api_url
-```
-
-## 📚 API Endpoints
-
-### Authentication
-- `POST /api/user/register` - Register new user
-- `POST /api/user/login` - User login
-- `GET /api/user/profile` - Get user profile
-
-### Products
-- `GET /api/product/getAll` - Get all products
-- `GET /api/product/singleProduct/:id` - Get single product
-- `GET /api/product/category/:category` - Get products by category
-- `POST /api/product/create` - Create product (Admin only)
-- `PATCH /api/product/update/:id` - Update product (Admin only)
-- `DELETE /api/product/delete/:id` - Delete product (Admin only)
-
-### Categories
-- `GET /api/category` - Get all categories
-- `POST /api/category` - Create category (Admin only)
-- `PATCH /api/category/:id` - Update category (Admin only)
-- `DELETE /api/category/:id` - Delete category (Admin only)
-
-### Cart
-- `POST /api/cart` - Add item to cart
-- `GET /api/cart` - Get cart items
-- `PATCH /api/cart` - Update cart item
-- `DELETE /api/cart/:productId` - Remove item from cart
-
-### Orders
-- `POST /api/order` - Create order
-- `GET /api/order` - Get all orders (Admin only)
-- `GET /api/order/myOrders` - Get user's orders
-- `GET /api/order/:id` - Get single order
-
-### Reviews
-- `POST /api/ratingReview` - Add product review
-- `GET /api/ratingReview/:productId` - Get product reviews
-
-## 🧪 Testing
-
-### Test Credentials
-
-**Admin Account:**
-- Email: `admin@example.com`
-- Password: `adminpassword123`
-
-**User Account:**
-- Email: `user@example.com`
-- Password: `userpassword123`
-
-## 📂 Project Structure
+## 📁 Project Structure
 
 ```
 ecomwebapp/
 ├── Backend/
-│   ├── config/          # Database configuration
-│   ├── controllers/     # Business logic
-│   ├── middleware/      # Auth, file upload, error handling
-│   ├── models/          # Database schemas
-│   ├── routes/          # API routes
-│   ├── services/        # Utility services
-│   ├── storage/         # Uploaded images
-│   ├── server.js        # Main server file
-│   └── package.json
+│   ├── config/           # Database configuration
+│   ├── controllers/      # Business logic
+│   ├── middleware/       # Auth, file upload, error handling
+│   ├── models/           # MongoDB schemas
+│   ├── routes/           # API endpoints
+│   ├── services/         # Utility services
+│   ├── storage/          # Uploaded files
+│   └── server.js         # Entry point
 │
 ├── frontend/
 │   ├── src/
+│   │   ├── adminDashboard/  # Admin-specific components
+│   │   ├── globals/         # Shared components (Navbar, Footer)
+│   │   ├── http/            # API client configuration
 │   │   ├── pages/           # Page components
-│   │   ├── adminDashboard/  # Admin panel
-│   │   ├── store/           # Redux state management
 │   │   ├── routes/          # Route protection
-│   │   ├── http/            # API configuration
+│   │   ├── store/           # Redux store and slices
 │   │   └── App.jsx          # Main app component
-│   └── package.json
+│   └── public/              # Static assets
 │
 └── README.md
 ```
 
+## 🚀 Getting Started
+
+### Prerequisites
+- Node.js (v18 or higher)
+- npm or yarn
+- MongoDB Atlas account (free tier available)
+- Stripe account (for payments - test mode is free)
+
+### Installation
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/samrakshanadhikari/NEWWEBAPPECOMMERCE.git
+   cd NEWWEBAPPECOMMERCE
+   ```
+
+2. **Backend Setup**
+   ```bash
+   cd Backend
+   npm install
+   ```
+   
+   Create a `.env` file in the `Backend` directory:
+   ```env
+   PORT=3000
+   MONGODB_URI=your_mongodb_atlas_connection_string
+   JWT_SECRETE=your_jwt_secret_key
+   CORS_ORIGIN=http://localhost:5173
+   STRIPE_SECRET_KEY=your_stripe_secret_key
+   ```
+
+3. **Frontend Setup**
+   ```bash
+   cd ../frontend
+   npm install
+   ```
+   
+   Create a `.env` file in the `frontend` directory:
+   ```env
+   VITE_API_URL=http://localhost:3000/
+   VITE_STRIPE_PUBLISHABLE_KEY=your_stripe_publishable_key
+   ```
+
+4. **Run the application**
+   ```bash
+   # Terminal 1 - Backend
+   cd Backend
+   npm run dev
+   
+   # Terminal 2 - Frontend
+   cd frontend
+   npm run dev
+   ```
+
+5. **Access the application**
+   - Frontend: http://localhost:5173
+   - Backend API: http://localhost:3000
+
+## 🔑 API Endpoints
+
+### Authentication
+- `POST /api/register` - Register a new user
+- `POST /api/login` - User login
+- `GET /api/profile` - Get user profile (protected)
+- `PATCH /api/update/:id` - Update user profile (protected)
+
+### Products
+- `GET /api/product/getAll` - Get all products
+- `GET /api/product/:id` - Get single product
+- `POST /api/product/create` - Create product (admin only)
+- `PATCH /api/product/update/:id` - Update product (admin only)
+- `DELETE /api/product/delete/:id` - Delete product (admin only)
+
+### Cart
+- `GET /api/cart` - Get user's cart (protected)
+- `POST /api/cart` - Add item to cart (protected)
+- `PATCH /api/cart` - Update cart item quantity (protected)
+- `DELETE /api/cart/:productId` - Remove item from cart (protected)
+
+### Orders
+- `POST /api/order` - Create order (protected)
+- `GET /api/order` - Get user's orders (protected)
+- `GET /api/order/:id` - Get order details (protected)
+
+### Payments (Stripe)
+- `POST /api/stripe/create-payment-intent` - Create payment intent (protected)
+- `POST /api/stripe/confirm-payment` - Confirm payment (protected)
+
+See [REST_API_EXPLANATION.md](./REST_API_EXPLANATION.md) for complete API documentation.
+
 ## 🔒 Security Features
 
-- JWT-based authentication
-- Password hashing with Bcrypt
-- Role-based access control (Admin/User)
-- CORS protection
-- Input validation
-- Error handling middleware
+- ✅ **Password Hashing** - Bcrypt with salt rounds
+- ✅ **JWT Tokens** - Secure, stateless authentication
+- ✅ **Token Expiration** - Automatic token expiry (1 hour)
+- ✅ **Role-Based Access Control** - Admin/User role separation
+- ✅ **CORS Protection** - Configured for allowed origins
+- ✅ **Input Validation** - Request validation middleware
+- ✅ **Error Handling** - Centralized error handling
+- ✅ **Environment Variables** - Sensitive data protection
 
-## 🚀 Deployment
+## 📸 Screenshots
 
-See [DEPLOYMENT_STEP_BY_STEP.md](./DEPLOYMENT_STEP_BY_STEP.md) for detailed deployment instructions.
+_Add screenshots of your application here_
 
-### Quick Deployment Steps:
+## 🧪 Testing
 
-1. **Deploy Backend to Railway**
-   - Connect GitHub repository
-   - Set root directory to `Backend`
-   - Add environment variables
-   - Deploy
+To test the application:
 
-2. **Deploy Frontend to Vercel**
-   - Connect GitHub repository
-   - Set root directory to `frontend`
-   - Add `VITE_API_URL` environment variable
-   - Deploy
+1. **Create test user accounts:**
+   - Regular user: Register via `/register`
+   - Admin: Use admin creation script or MongoDB
 
-3. **Update CORS**
-   - Update `CORS_ORIGIN` in Railway to match Vercel URL
+2. **Test payment:**
+   - Use Stripe test cards: `4242 4242 4242 4242`
+   - Any future expiry date, any CVC
 
-## 📝 Scripts
+3. **Admin features:**
+   - Login as admin
+   - Access dashboard at `/dashboard`
+   - Add/edit products, manage orders
 
-### Backend
-```bash
-npm start      # Start production server
-npm run dev    # Start development server with nodemon
-```
+## 🚢 Deployment
 
-### Frontend
-```bash
-npm run dev    # Start development server
-npm run build  # Build for production
-npm run preview # Preview production build
-```
+### Frontend (Vercel - Recommended)
+1. Push code to GitHub
+2. Import repository in Vercel
+3. Set environment variables in Vercel dashboard
+4. Deploy
+
+### Backend (Railway - Recommended)
+1. Connect GitHub repository to Railway
+2. Set environment variables
+3. Deploy
+
+See [DEPLOYMENT_GUIDE.md](./DEPLOYMENT_GUIDE.md) for detailed deployment instructions.
 
 ## 🤝 Contributing
 
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+Contributions are welcome! Please feel free to submit a Pull Request.
 
-## 📄 License
+## 📝 License
 
 This project is open source and available under the [MIT License](LICENSE).
 
 ## 👤 Author
 
-**Your Name**
-- GitHub: [@yourusername](https://github.com/yourusername)
-- Email: your.email@example.com
+**Samrakshan Adhikari**
+- GitHub: [@samrakshanadhikari](https://github.com/samrakshanadhikari)
+- Project Link: [https://github.com/samrakshanadhikari/NEWWEBAPPECOMMERCE](https://github.com/samrakshanadhikari/NEWWEBAPPECOMMERCE)
 
 ## 🙏 Acknowledgments
 
-- React community for excellent documentation
-- MongoDB Atlas for free database hosting
-- Vercel and Railway for free deployment tiers
+- React team for the amazing framework
+- Express.js for the robust backend framework
+- MongoDB for the flexible database solution
+- Stripe for payment processing
+- All open-source contributors
 
 ---
 
-**Note:** Remember to update the live demo URLs after deployment!
+⭐ **If you find this project helpful, please give it a star!**

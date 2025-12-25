@@ -18,7 +18,9 @@ async function seedProducts() {
       process.exit(1);
     }
 
-    // Clear existing data (optional)
+    // NOTE: This script adds sample data for testing
+    // If you want to start fresh, run clearSeedData.js first
+    // Clear existing data (optional - commented out by default)
     // await Product.deleteMany({});
     // await Category.deleteMany({});
 

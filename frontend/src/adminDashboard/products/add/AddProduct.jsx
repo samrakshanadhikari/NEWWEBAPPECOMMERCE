@@ -74,16 +74,14 @@ const AddProduct = () => {
     }
 
     try {
-      const response = await APIAuthenticated.post("/api/product/create", formData, {
-        headers: {
-          Authorization: `${token}`,
-        }
-      });
-      toast.success("Product added successfully");
-      navigate("/listProduct");
+      const response = await APIAuthenticated.post("/api/product/create", formData);
+      if (response.status === 200) {
+        toast.success("Product added successfully");
+        navigate("/listProduct");
+      }
     } catch (error) {
-      console.error(error);
-      toast.error("Error creating product. Please try again.");
+      const errorMessage = error.response?.data?.message || error.response?.data?.errorMessage || "Error creating product. Please try again.";
+      toast.error(errorMessage);
     } finally {
       setIsSubmitting(false);
     }
