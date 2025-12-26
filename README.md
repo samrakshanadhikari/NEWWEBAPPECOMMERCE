@@ -13,9 +13,9 @@
 - **Frontend:** [Coming Soon - Deploy to Vercel]
 - **Backend API:** [Coming Soon - Deploy to Railway]
 
-## 📋 Features
+##  Features
 
-### 🔐 User Features
+###  User Features
 - ✅ **User Authentication & Authorization** - Secure JWT-based login/register system
 - ✅ **Product Browsing** - Browse products by category with image galleries
 - ✅ **Shopping Cart** - Add, update, and remove items with real-time quantity management
@@ -25,7 +25,7 @@
 - ✅ **User Profile** - Manage personal information and preferences
 - ✅ **Wishlist** - Save favorite products for later
 
-### 👨‍💼 Admin Features
+### Admin Features
 - ✅ **Admin Dashboard** - Comprehensive analytics and overview
 - ✅ **Product Management** - Full CRUD operations for products with image uploads
 - ✅ **Category Management** - Organize products by categories
@@ -60,7 +60,7 @@
 - **Vercel** (Recommended) - Frontend hosting
 - **Railway** (Recommended) - Backend API hosting
 
-## 🏗️ Architecture
+##  Architecture
 
 This application follows a **RESTful API architecture** with clear separation of concerns:
 
@@ -80,7 +80,7 @@ This application follows a **RESTful API architecture** with clear separation of
 - **File Upload** - Multer for handling multipart/form-data
 - **State Management** - Redux Toolkit for predictable state updates
 
-## 📁 Project Structure
+##  Project Structure
 
 ```
 ecomwebapp/
@@ -108,7 +108,7 @@ ecomwebapp/
 └── README.md
 ```
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 - Node.js (v18 or higher)
@@ -166,7 +166,7 @@ ecomwebapp/
    - Frontend: http://localhost:5173
    - Backend API: http://localhost:3000
 
-## 🔑 API Endpoints
+## API Endpoints
 
 ### Authentication
 - `POST /api/register` - Register a new user
@@ -198,7 +198,7 @@ ecomwebapp/
 
 See [REST_API_EXPLANATION.md](./REST_API_EXPLANATION.md) for complete API documentation.
 
-## 🔒 Security Features
+##  Security Features
 
 - ✅ **Password Hashing** - Bcrypt with salt rounds
 - ✅ **JWT Tokens** - Secure, stateless authentication
@@ -209,11 +209,11 @@ See [REST_API_EXPLANATION.md](./REST_API_EXPLANATION.md) for complete API docume
 - ✅ **Error Handling** - Centralized error handling
 - ✅ **Environment Variables** - Sensitive data protection
 
-## 📸 Screenshots
+##  Screenshots
 
 _Add screenshots of your application here_
 
-## 🧪 Testing
+## Testing
 
 To test the application:
 
@@ -230,7 +230,7 @@ To test the application:
    - Access dashboard at `/dashboard`
    - Add/edit products, manage orders
 
-## 🚢 Deployment
+##  Deployment
 
 ### Frontend (Vercel - Recommended)
 1. Push code to GitHub
@@ -245,11 +245,11 @@ To test the application:
 
 See [DEPLOYMENT_GUIDE.md](./DEPLOYMENT_GUIDE.md) for detailed deployment instructions.
 
-## 🤝 Contributing
+##  Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
 
-## 📝 License
+##  License
 
 This project is open source and available under the [MIT License](LICENSE).
 
@@ -259,7 +259,7 @@ This project is open source and available under the [MIT License](LICENSE).
 - GitHub: [@samrakshanadhikari](https://github.com/samrakshanadhikari)
 - Project Link: [https://github.com/samrakshanadhikari/NEWWEBAPPECOMMERCE](https://github.com/samrakshanadhikari/NEWWEBAPPECOMMERCE)
 
-## 🙏 Acknowledgments
+##  Acknowledgments
 
 - React team for the amazing framework
 - Express.js for the robust backend framework
@@ -269,4 +269,5 @@ This project is open source and available under the [MIT License](LICENSE).
 
 ---
 
-⭐ **If you find this project helpful, please give it a star!**
+ **If you find this project helpful, please give it a star!**
+
