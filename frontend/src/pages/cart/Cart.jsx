@@ -124,12 +124,12 @@ const Cart = () => {
                 </div>
                 <div className="flex justify-between">
                   <span>Subtotal</span>
-                  <span>Rs. {subTotal}</span>
+                  <span>${subTotal}</span>
                 </div>
                 <hr className="border-gray-300" />
                 <div className="flex justify-between font-semibold text-gray-800">
                   <span>Total</span>
-                  <span>Rs. {subTotal}</span>
+                  <span>${subTotal}</span>
                 </div>
               </div>
 

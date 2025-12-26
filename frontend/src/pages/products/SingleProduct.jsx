@@ -85,7 +85,7 @@ const SingleProduct = () => {
                                 </div>
 
                                 <div className="flex items-center gap-4 text-2xl font-bold">
-                                    <span className="text-blue-600">Rs. {singleProduct?.productPrice}</span>
+                                    <span className="text-blue-600">${singleProduct?.productPrice}</span>
                                     <span className="text-sm bg-blue-50 text-blue-700 px-2 py-1 rounded-md font-semibold">
                                         On Sale
                                     </span>

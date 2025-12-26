@@ -54,7 +54,7 @@ const MyOrder = () => {
                 </div>
               </td>
               <td className="px-6 py-4 font-semibold text-gray-900">
-                <Link to={`/orderDetails/${order._id}`}>Rs. {order.totalAmount}</Link>
+                <Link to={`/orderDetails/${order._id}`}>${order.totalAmount}</Link>
               </td>
               <td className="px-6 py-4">
                 <Link to={`/orderDetails/${order._id}`}>

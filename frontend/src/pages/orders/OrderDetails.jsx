@@ -78,7 +78,7 @@ const OrderDetails = () => {
         </section>
 
         <div className="mt-10 text-right text-2xl font-bold text-gray-900">
-          Total Amount: Rs. {singleOrder.totalAmount}
+          Total Amount: ${singleOrder.totalAmount}
         </div>
 
         <Link

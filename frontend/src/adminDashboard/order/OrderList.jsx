@@ -30,7 +30,7 @@ const OrderList = () => {
   
   // Format currency
   const formatCurrency = (amount) => {
-    return `Rs ${amount.toLocaleString()}`;
+    return `$${amount.toLocaleString()}`;
   };
 
   // Format date nicely

@@ -81,7 +81,7 @@ const ListProduct = () => {
                                 <p className="text-sm text-gray-600 line-clamp-2">{product.productDescription}</p>
                                 <div className="text-sm text-blue-500 space-y-1 mt-1">
                                     <p className="flex items-center gap-2">
-                                        <FaRupeeSign className="text-blue-400" /> Rs. {product.productPrice}
+                                        <FaRupeeSign className="text-blue-400" /> ${product.productPrice}
                                     </p>
                                     <p className="flex items-center gap-2">
                                         <FaBoxOpen className="text-blue-400" /> {product.productTotalStockQuantity} in stock

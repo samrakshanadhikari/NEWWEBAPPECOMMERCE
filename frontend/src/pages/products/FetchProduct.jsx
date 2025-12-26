@@ -80,7 +80,7 @@ const FetchProduct = () => {
                   </div>
                   <div>
                     <span className="text-blue-600 font-bold text-lg">
-                      Rs {pro.productPrice}
+                      ${pro.productPrice}
                     </span>
                   </div>
                 </div>
