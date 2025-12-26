@@ -73,12 +73,17 @@ export function login(data) {
       if (response.status === 200) {
         const { token, data: userData } = response.data;
 
+        if (!token || !userData) {
+          console.error('Login response missing token or userData:', response.data);
+          dispatch(setStatus(STATUS.ERROR));
+          return null;
+        }
+
         dispatch(setProfile(userData));
         dispatch(setToken(token));
 
         localStorage.setItem('token', token);
         localStorage.setItem('role', userData.role); 
-
 
         dispatch(setStatus(STATUS.SUCCESS));
         return userData;
@@ -87,6 +92,8 @@ export function login(data) {
         return null;
       }
     } catch (err) {
+      console.error('Login error:', err);
+      const errorMessage = err.response?.data?.message || err.message || 'Login failed. Please check your credentials.';
       dispatch(setStatus(STATUS.ERROR));
       return null;
     }

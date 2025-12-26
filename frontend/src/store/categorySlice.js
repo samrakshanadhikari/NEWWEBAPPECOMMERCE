@@ -57,20 +57,26 @@ export function addCategory(categoryData) {
     return async function addCategoryThunk(dispatch) {
         dispatch(setStatus(STATUS.LOADING));
         try {
-            const response = await APIAuthenticated.post("/api/category", categoryData, {
-                headers: {
-                    'Content-Type': "multipart/form-data"
-                }
-            });
+            // Convert to FormData for file upload
+            const formData = new FormData();
+            formData.append('categoryName', categoryData.categoryName);
+            if (categoryData.image) {
+                formData.append('image', categoryData.image);
+            }
+
+            const response = await APIAuthenticated.post("/api/category", formData);
             if (response.status === 200) {
                 dispatch(setStatus(STATUS.SUCCESS));
                 dispatch(listAllCategory());
+                return { success: true, data: response.data };
             } else {
                 dispatch(setStatus(STATUS.ERROR));
+                return { success: false, error: response.data?.message || "Failed to create category" };
             }
         } catch (err) {
-            console.error(err);
+            console.error('Add category error:', err);
             dispatch(setStatus(STATUS.ERROR));
+            return { success: false, error: err.response?.data?.message || err.message || "Failed to create category. Please try again." };
         }
     };
 }

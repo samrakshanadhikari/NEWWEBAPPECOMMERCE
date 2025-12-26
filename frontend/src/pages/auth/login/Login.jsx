@@ -26,19 +26,27 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const user = await dispatch(login(userData));
-    if (user) {
-      toast.success("Login successful");
+    try {
+      const result = await dispatch(login(userData));
+      const user = result.payload || result;
       
-      if (user.role === "admin") {
-        navigate("/dashboard");
-      } else if (user.role === "superAdmin") {
-        navigate("/superAdminDashboard");
+      if (user) {
+        toast.success("Login successful");
+        
+        if (user.role === "admin") {
+          navigate("/dashboard");
+        } else if (user.role === "superAdmin") {
+          navigate("/superAdminDashboard");
+        } else {
+          navigate("/");
+        }
       } else {
-        navigate("/");
+        toast.error("Login failed. Please check your credentials.");
       }
-    } else {
-      toast.error("Login failed. Please check your credentials.");
+    } catch (error) {
+      console.error('Login error:', error);
+      const errorMessage = error.message || "Login failed. Please check your credentials.";
+      toast.error(errorMessage);
     }
   };
 

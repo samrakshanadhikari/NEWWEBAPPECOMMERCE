@@ -1,14 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Sidebar from '../dashboard/sidebar/Sidebar';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addCategory } from '../../store/categorySlice';
+import { STATUS } from '../../globals/status/Status';
 import { FaTag, FaUpload, FaArrowLeft, FaImage, FaInfoCircle, FaFolder, FaLayerGroup } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 
 const AddCategory = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const { status: categoryStatus } = useSelector((state) => state.category);
 
     const [categoryData, setCategoryData] = useState({
         categoryName: "",
@@ -75,17 +77,64 @@ const AddCategory = () => {
         }
     };
 
+    // Monitor category status changes
+    useEffect(() => {
+        if (categoryStatus === STATUS.SUCCESS && isSubmitting) {
+            toast.success("Category added successfully");
+            setIsSubmitting(false);
+            setTimeout(() => {
+                navigate("/categoryList");
+            }, 1000);
+        } else if (categoryStatus === STATUS.ERROR && isSubmitting) {
+            toast.error("Error creating category. Please try again.");
+            setIsSubmitting(false);
+        }
+    }, [categoryStatus, isSubmitting, navigate]);
+
     const handleSubmit = async (e) => {
         e.preventDefault();
+        console.log('Form submitted with data:', categoryData);
+        
+        // Validate required fields
+        if (!categoryData.categoryName || categoryData.categoryName.trim() === '') {
+            toast.error("Please enter a category name");
+            return;
+        }
+        
         setIsSubmitting(true);
+        console.log('Dispatching addCategory...');
         
         try {
-            await dispatch(addCategory(categoryData)).unwrap();
-            toast.success("Category added successfully");
-            navigate("/categoryList");
+            const result = await dispatch(addCategory(categoryData));
+            console.log('Dispatch result:', result);
+            
+            // Check result directly
+            const categoryResult = result.payload || result;
+            console.log('Category result:', categoryResult);
+            
+            if (categoryResult && categoryResult.success) {
+                toast.success("Category added successfully");
+                setTimeout(() => {
+                    navigate("/categoryList");
+                }, 1000);
+            } else if (categoryResult && categoryResult.error) {
+                toast.error(categoryResult.error);
+            } else {
+                // Wait a bit and check status
+                setTimeout(() => {
+                    if (categoryStatus === STATUS.SUCCESS) {
+                        toast.success("Category added successfully");
+                        navigate("/categoryList");
+                    } else {
+                        toast.error("Error creating category. Please check console for details.");
+                    }
+                    setIsSubmitting(false);
+                }, 500);
+            }
         } catch (error) {
-            toast.error("Error creating category. Please try again.");
-        } finally {
+            console.error('Category creation error:', error);
+            const errorMessage = error.message || "Error creating category. Please try again.";
+            toast.error(errorMessage);
             setIsSubmitting(false);
         }
     };
