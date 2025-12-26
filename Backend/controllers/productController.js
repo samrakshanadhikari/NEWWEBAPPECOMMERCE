@@ -2,31 +2,46 @@ import Product from "../models/productModel.js"
 
 //creat product api
 export const createProduct = async (req, res) => {
-    const userId=req.user.id;
-    const { productName, productDescription, productPrice, productTotalStockQuantity, totalRating, category } = req.body;
+    try {
+        const userId=req.user.id;
+        const { productName, productDescription, productPrice, productTotalStockQuantity, totalRating, category } = req.body;
 
-    
-    let productImageUrl;
-    if (req.file) {
-        productImageUrl = `${req.file.filename}`
+        // Validate required fields
+        if (!productName || !productDescription || !productPrice || !productTotalStockQuantity || !category) {
+            return res.status(400).json({ message: "All required fields must be provided" });
+        }
+
+        // Check if product name already exists
+        const existingProducts= await Product.findOne({productName})
+        if(existingProducts){
+            return res.status(400).json({ message: "Product name must be unique" })
+        }
+
+        // Handle image upload
+        let productImageUrl;
+        if (req.file) {
+            productImageUrl = `${req.file.filename}`
+        }
+
+        // Create product
+        const products = await Product.create({
+            productName,
+            productDescription,
+            productPrice: Number(productPrice),
+            productTotalStockQuantity: Number(productTotalStockQuantity),
+            productImageUrl,
+            totalRating: totalRating ? Number(totalRating) : 0,
+            category,
+            userId
+        })
+        
+        res.status(200).json({ message: "Product created successfully", data: products })
+    } catch (error) {
+        res.status(500).json({ 
+            error: "Internal server error", 
+            errorMessage: error.message 
+        })
     }
-
-    const existingProducts= await Product.findOne({productName})
-    if(existingProducts){
-         res.status(400).json({ message: "Product name must be unique "})
-    }
-
-    const products = await Product.create({
-        productName,
-        productDescription,
-        productPrice,
-        productTotalStockQuantity,
-        productImageUrl,
-        totalRating,
-        category,
-        userId
-    })
-    res.status(200).json({ message: "Product created successfully", data: products })
 }
 
 //fetch all products

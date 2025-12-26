@@ -15,6 +15,7 @@ const SingleProduct = () => {
     const { id } = useParams();
     const dispatch = useDispatch();
     const { singleProduct, status } = useSelector((state) => state.product);
+    const { status: cartStatus } = useSelector((state) => state.cart);
   
     const [quantity, setQuantity]=useState(1)
 
@@ -27,13 +28,20 @@ const SingleProduct = () => {
 
     const handleAddToCart= async()=>{
        if(id ){
-        await  dispatch(addToCart(id, quantity));
-
-        if(status===STATUS.SUCCESS){
-            toast.success("Product successfully added on the cart")
-            
-        }else if(status===STATUS.ERROR){
-            toast.error("Faild to add the product on the cart")
+        try {
+            const result = await dispatch(addToCart(id, quantity));
+            // Check if result indicates success
+            if (result && result.success) {
+                toast.success("Product successfully added to cart");
+            } else {
+                // If no success flag, check for error
+                const errorMsg = result?.error?.message || result?.message || "Failed to add product to cart";
+                toast.error(errorMsg);
+            }
+        } catch (err) {
+            console.error('Add to cart error:', err);
+            const errorMessage = err.response?.data?.message || err.message || "Failed to add product to cart. Please make sure you're logged in.";
+            toast.error(errorMessage);
         }
        }
     }

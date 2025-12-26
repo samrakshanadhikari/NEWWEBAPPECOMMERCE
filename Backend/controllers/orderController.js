@@ -47,48 +47,30 @@ export const createOrder = async (req, res) => {
       paymentStatus: "pending",
     });
 
-    const orderedProductIds = products.map(p => p.productId);
-    await Cart.deleteMany({
-      userId,
-      productId: { $in: orderedProductIds }
-    });
+    // For COD, clear cart immediately
+    if (paymentMethod === 'cod') {
+      const orderedProductIds = products.map(p => p.productId);
+      await Cart.deleteMany({
+        userId,
+        productId: { $in: orderedProductIds }
+      });
 
-    //  Handle Khalti Payment
-    if (paymentMethod === 'khalti') {
-      const khaltiPayload = {
-        return_url: "http://localhost:5173/success/",
-        website_url: "https://localhost:5173",
-        amount: totalAmount * 100,
-        purchase_order_id: orderData._id,
-        purchase_order_name: "test",
-      };
-
-      const khaltiResponse = await axios.post(
-        'https://dev.khalti.com/api/v2/epayment/initiate/',
-        khaltiPayload,
-        {
-          headers: {
-            Authorization: 'key bd2b92f5a5f64b4b91089e2d1d1e08d9',
-          }
-        }
-      );
-
-      paymentData.pidx = khaltiResponse.data.pidx;
+      paymentData.paymentStatus = 'completed';
       await paymentData.save();
 
-      return res.status(200).json({
-        message: "Order placed successfully, redirect to Khalti",
-        url: khaltiResponse.data.payment_url,
-        order: orderData
-      });
-    }
-
-    if (paymentMethod === 'cod') {
       return res.status(200).json({
         message: "Order placed successfully with Cash on Delivery",
         order: orderData
       });
     }
+
+    // For Stripe payments, cart will be cleared after payment confirmation
+    // Return order data - frontend will handle Stripe payment
+    return res.status(200).json({
+      message: "Order created. Proceed to payment.",
+      order: orderData,
+      requiresPayment: true
+    });
 
   } catch (error) {
     console.error("Order creation error:", error);

@@ -5,6 +5,7 @@ import productRoutes from "./routes/productRoutes.js"
 import categoryRoutes from "./routes/categoryRoutes.js"
 import cartRoutes from "./routes/cartRoutes.js"
 import orderRoutes from "./routes/orderRoutes.js"
+import stripeRoutes from "./routes/stripeRoutes.js"
 import wishlistRoutes from "./routes/wishlistRoute.js"
 import ratingReviewsRoutes from "./routes/ratingReviewRoutes.js"
 
@@ -37,6 +38,7 @@ app.use("/api/product", productRoutes)
 app.use("/api/category", categoryRoutes)
 app.use("/api/cart", cartRoutes)
 app.use("/api/order", orderRoutes)
+app.use("/api/stripe", stripeRoutes)
 app.use("/api/wishlist", wishlistRoutes)
 app.use("/api/ratingReview", ratingReviewsRoutes)
 

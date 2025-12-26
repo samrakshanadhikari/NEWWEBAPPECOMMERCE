@@ -39,19 +39,23 @@ export default cartSlice.reducer;
 
 //add to cart
 export function addToCart(productId, quantity=1) {
-  return async function addToCartThunk(dispatch) {
+  return async function addToCartThunk(dispatch, getState) {
     dispatch(setStatus(STATUS.LOADING));
     try {
       const response = await APIAuthenticated.post("/api/cart", {productId, quantity});
       if (response.status === 200) {
         dispatch(setStatus(STATUS.SUCCESS));
         dispatch(fetchCartItem());
-
+        return { success: true, data: response.data };
       } else {
+        const errorMsg = response.data?.message || "Failed to add to cart";
         dispatch(setStatus(STATUS.ERROR));
+        return { success: false, error: { message: errorMsg } };
       }
     } catch (err) {
       dispatch(setStatus(STATUS.ERROR));
+      const errorMessage = err.response?.data?.message || err.message || "Failed to add product to cart. Please login first.";
+      return { success: false, error: { message: errorMessage } };
     }
   };
 }
@@ -69,7 +73,14 @@ export function fetchCartItem() {
         dispatch(setStatus(STATUS.ERROR));
       }
     } catch (err) {
-      dispatch(setStatus(STATUS.ERROR));
+      // If user is not authenticated, set empty cart instead of error
+      if (err.response?.status === 401 || err.response?.status === 403) {
+        dispatch(setCartData({ message: "Cart item fetch successfully", data: [] }));
+        dispatch(setStatus(STATUS.SUCCESS));
+      } else {
+        console.error('Cart fetch error:', err);
+        dispatch(setStatus(STATUS.ERROR));
+      }
     }
   };
 }
