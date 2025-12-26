@@ -10,8 +10,40 @@
 
 ## 🚀 Live Demo
 
-- **Frontend:** [Coming Soon - Deploy to Vercel]
-- **Backend API:** [Coming Soon - Deploy to Railway]
+- **Frontend:** [Deploy to Vercel] - See [DEPLOYMENT_GUIDE.md](./DEPLOYMENT_GUIDE.md)
+- **Backend API:** [Deploy to Railway] - See [DEPLOYMENT_GUIDE.md](./DEPLOYMENT_GUIDE.md)
+
+## 🐳 Docker Support
+
+This application is fully containerized with Docker:
+
+```bash
+# Run with Docker Compose
+docker-compose up --build
+
+# Or build individually
+cd Backend && docker build -t ecommerce-backend .
+cd frontend && docker build -t ecommerce-frontend .
+```
+
+## ☁️ AWS Deployment (Free Tier - Recommended for IBM)
+
+Deploy to AWS using Docker containers:
+
+```bash
+# Quick start (15 minutes)
+# See AWS_QUICK_START.md
+
+# Or detailed guide
+# See AWS_DEPLOYMENT_GUIDE.md
+```
+
+**AWS Services Used:**
+- **EC2/Elastic Beanstalk** - Backend (Docker containers)
+- **S3** - Frontend static hosting
+- **Free Tier**: $0/month for 12 months!
+
+See [AWS_DEPLOYMENT_GUIDE.md](./AWS_DEPLOYMENT_GUIDE.md) for complete instructions.
 
 ## 📋 Features
 
@@ -57,8 +89,15 @@
 
 ### Database & Cloud Services
 - **MongoDB Atlas** - Cloud-hosted MongoDB database
-- **Vercel** (Recommended) - Frontend hosting
-- **Railway** (Recommended) - Backend API hosting
+- **AWS (EC2/S3)** - Cloud deployment (free tier for 12 months) ⭐ Recommended
+- **Vercel** - Frontend hosting alternative (free tier)
+- **Railway** - Backend hosting alternative (free tier)
+
+### DevOps & Testing
+- **Docker** - Containerization for easy deployment
+- **GitHub Actions** - CI/CD pipeline for automated testing and deployment
+- **Jest** - Backend unit and integration testing
+- **Vitest** - Frontend unit testing with React Testing Library
 
 ## 🏗️ Architecture
 
@@ -165,6 +204,40 @@ ecomwebapp/
 5. **Access the application**
    - Frontend: http://localhost:5173
    - Backend API: http://localhost:3000
+
+## 🧪 Testing
+
+### Run Tests
+
+**Backend:**
+```bash
+cd Backend
+npm test              # Run tests
+npm test -- --coverage # Run with coverage
+```
+
+**Frontend:**
+```bash
+cd frontend
+npm test              # Run tests
+npm test -- --coverage # Run with coverage
+```
+
+### Docker Testing
+
+```bash
+docker-compose up --build
+```
+
+## 🔄 CI/CD
+
+This project includes GitHub Actions CI/CD pipeline that:
+- Runs automated tests on push/PR
+- Validates code quality
+- Builds Docker images
+- Checks for deployment readiness
+
+See `.github/workflows/ci-cd.yml` for configuration.
 
 ## 🔑 API Endpoints
 
